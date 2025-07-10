@@ -1,4 +1,4 @@
-"""Tests for the studio command."""
+"""Tests for the jvgraph launch command."""
 
 from bson import ObjectId
 from click.testing import CliRunner
@@ -10,26 +10,26 @@ from pytest_mock import MockerFixture
 from jvgraph.commands.launch import EndpointFactory, launch
 
 
-class TestStudio:
-    """Test cases for the studio command."""
+class TestGraphLaunch:
+    """Test cases for the launch command."""
 
     # Launch studio successfully on default port 8989
-    def test_launch_studio_default_port(self, mocker: MockerFixture) -> None:
-        """Test launching studio with default port."""
+    def test_launch_jvgraph_default_port(self, mocker: MockerFixture) -> None:
+        """Test launching launch with default port."""
         # Mock FastAPI and its dependencies
-        mock_fastapi = mocker.patch("jvgraph.commands.studio.FastAPI")
+        mock_fastapi = mocker.patch("jvgraph.commands.launch.FastAPI")
         mock_app = mocker.MagicMock()
         mock_fastapi.return_value = mock_app
 
         # Mock uvicorn run
-        mock_run = mocker.patch("jvgraph.commands.studio.run")
+        mock_run = mocker.patch("jvgraph.commands.launch.run")
 
         # Mock Path operations
         mock_path = mocker.patch("pathlib.Path")
         mock_path_instance = mocker.MagicMock()
         mock_path.return_value = mock_path_instance
         mock_path_instance.resolve.return_value.parent.parent.joinpath.return_value = (
-            "mock/studio/path"
+            "mock/jvgraph/path"
         )
 
         # Mock click.echo
@@ -48,14 +48,14 @@ class TestStudio:
         mock_run.assert_called_once_with(mock_app, host="0.0.0.0", port=8989)
 
         # Verify studio launch message was displayed
-        mock_echo.assert_called_once_with("Launching Jivas Studio on port 8989...")
+        mock_echo.assert_called_once_with("Launching Jivas Graph on port 8989...")
 
     def test_get_graph_endpoint(self, mocker: MockerFixture) -> None:
         """Test the /graph endpoint."""
 
         # Mock database collections
         mock_get_collection = mocker.patch(
-            "jvgraph.commands.studio.NodeAnchor.Collection.get_collection"
+            "jvgraph.commands.launch.NodeAnchor.Collection.get_collection"
         )
         mock_node_collection = mocker.MagicMock()
         mock_edge_collection = mocker.MagicMock()
@@ -120,7 +120,7 @@ class TestStudio:
 
         # Mock database collections
         mock_get_collection = mocker.patch(
-            "jvgraph.commands.studio.NodeAnchor.Collection.get_collection"
+            "jvgraph.commands.launch.NodeAnchor.Collection.get_collection"
         )
         mock_user_collection = mocker.MagicMock()
         mock_get_collection.side_effect = lambda name: (
@@ -162,7 +162,7 @@ class TestStudio:
 
         # Mock database collections
         mock_get_collection = mocker.patch(
-            "jvgraph.commands.studio.NodeAnchor.Collection.get_collection"
+            "jvgraph.commands.launch.NodeAnchor.Collection.get_collection"
         )
         mock_node_collection = mocker.MagicMock()
         mock_edge_collection = mocker.MagicMock()
@@ -231,13 +231,13 @@ class TestStudio:
 
         # Mock NodeAnchor collection
         mock_get_collection = mocker.patch(
-            "jvgraph.commands.studio.NodeAnchor.Collection.get_collection"
+            "jvgraph.commands.launch.NodeAnchor.Collection.get_collection"
         )
         mock_user_collection = mocker.MagicMock()
         mock_get_collection.return_value = mock_user_collection
 
         # Mock decrypt function
-        mock_decrypt = mocker.patch("jvgraph.commands.studio.decrypt")
+        mock_decrypt = mocker.patch("jvgraph.commands.launch.decrypt")
         mock_decrypt.side_effect = [
             True,
             False,
@@ -274,7 +274,7 @@ class TestStudio:
 
         # Mock database collections
         mock_get_collection = mocker.patch(
-            "jvgraph.commands.studio.NodeAnchor.Collection.get_collection"
+            "jvgraph.commands.launch.NodeAnchor.Collection.get_collection"
         )
         mock_node_collection = mocker.MagicMock()
         mock_edge_collection = mocker.MagicMock()
@@ -283,7 +283,7 @@ class TestStudio:
         )
 
         # Mock decrypt function
-        mock_decrypt = mocker.patch("jvgraph.commands.studio.decrypt")
+        mock_decrypt = mocker.patch("jvgraph.commands.launch.decrypt")
         mock_decrypt.side_effect = [
             True,
         ]
@@ -350,7 +350,7 @@ class TestStudio:
 
         # Mock database collections
         mock_get_collection = mocker.patch(
-            "jvgraph.commands.studio.NodeAnchor.Collection.get_collection"
+            "jvgraph.commands.launch.NodeAnchor.Collection.get_collection"
         )
         mock_user_collection = mocker.MagicMock()
         mock_get_collection.side_effect = lambda name: (
@@ -358,7 +358,7 @@ class TestStudio:
         )
 
         # Mock decrypt function
-        mock_decrypt = mocker.patch("jvgraph.commands.studio.decrypt")
+        mock_decrypt = mocker.patch("jvgraph.commands.launch.decrypt")
         mock_decrypt.side_effect = [
             True,
         ]
@@ -402,7 +402,7 @@ class TestStudio:
 
         # Mock database collections
         mock_get_collection = mocker.patch(
-            "jvgraph.commands.studio.NodeAnchor.Collection.get_collection"
+            "jvgraph.commands.launch.NodeAnchor.Collection.get_collection"
         )
         mock_node_collection = mocker.MagicMock()
         mock_edge_collection = mocker.MagicMock()
@@ -411,7 +411,7 @@ class TestStudio:
         )
 
         # Mock decrypt function
-        mock_decrypt = mocker.patch("jvgraph.commands.studio.decrypt")
+        mock_decrypt = mocker.patch("jvgraph.commands.launch.decrypt")
         mock_decrypt.side_effect = [
             True,
         ]

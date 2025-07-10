@@ -217,7 +217,7 @@ class EndpointFactory:
 )
 def launch(port: int, require_auth: bool) -> None:
     """Launch the Jivas Studio on the specified port."""
-    click.echo(f"Launching Jivas Studio on port {port}...")
+    click.echo(f"Launching Jivas Graph on port {port}...")
 
     security = HTTPBearer() if require_auth else None
 
