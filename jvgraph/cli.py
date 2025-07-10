@@ -1,6 +1,5 @@
 """Jivas Graph CLI tool."""
 
-from jvgraph import __version__
 from jvgraph.group import jvgraph
 from jvgraph.commands.launch import launch
 
