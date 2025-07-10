@@ -22,7 +22,7 @@ def get_version() -> str:
 setup(
     name="jvgraph",
     version=get_version(),
-    description="CLI tool for Jivas Package Repository",
+    description="CLI tool for Jivas Graph",
     long_description=long_description,
     long_description_content_type="text/markdown",
     author="TrueSelph Inc.",
