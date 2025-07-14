@@ -12,7 +12,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from fastapi.staticfiles import StaticFiles
-from jac_cloud.core.architype import NodeAnchor
+from jac_cloud.core.archetype import NodeAnchor
 from jac_cloud.jaseci.security import decrypt
 from uvicorn import run
 
@@ -48,7 +48,7 @@ def get_nodes_and_edges(
                 "name": edge["name"],
                 "source": edge["source"],
                 "target": edge["target"],
-                "data": edge["architype"],
+                "data": edge["archetype"],
             }
         )
 
@@ -59,7 +59,7 @@ def get_nodes_and_edges(
             nodes.append(
                 {
                     "id": node["_id"],
-                    "data": node["architype"],
+                    "data": node["archetype"],
                     "name": node["name"],
                 }
             )
@@ -97,7 +97,7 @@ class EndpointFactory:
             nodes = [
                 {
                     "id": node["_id"],
-                    "data": node["architype"],
+                    "data": node["archetype"],
                     "name": node["name"],
                 }
                 for node in node_collection.find({"root": ObjectId(root)})
@@ -109,7 +109,7 @@ class EndpointFactory:
                     "name": edge["name"],
                     "source": edge["source"],
                     "target": edge["target"],
-                    "data": edge["architype"],
+                    "data": edge["archetype"],
                 }
                 for edge in edge_collection.find({"root": ObjectId(root)})
             ]

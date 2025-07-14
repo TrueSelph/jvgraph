@@ -1,4 +1,7 @@
+"""Jivas Graph CLI tool."""
+
 import click
+
 from jvgraph import __version__
 
 
